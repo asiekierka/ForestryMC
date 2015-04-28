@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
 import forestry.api.genetics.EnumTolerance;
+import forestry.api.genetics.IAllele;
 import forestry.api.genetics.IAlleleFloat;
 import forestry.api.genetics.IAlleleFlowers;
 import forestry.api.genetics.IAlleleInteger;
@@ -42,7 +43,12 @@ public class ButterflyGenome extends Genome implements IButterflyGenome {
 
 	// NBT RETRIEVAL
 	public static IAlleleButterflySpecies getSpecies(ItemStack itemStack) {
-		return (IAlleleButterflySpecies) getActiveAllele(itemStack, EnumButterflyChromosome.SPECIES, PluginLepidopterology.butterflyInterface);
+		IAllele speciesAllele = Genome.getActiveAllele(itemStack, EnumButterflyChromosome.SPECIES);
+		if (speciesAllele instanceof IAlleleButterflySpecies) {
+			return (IAlleleButterflySpecies) speciesAllele;
+		} else {
+			return null;
+		}
 	}
 
 	/* SPECIES */
